@@ -14,7 +14,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::where('deleted', false)->get();
+        return view('client.list', compact('clients'));
     }
 
     /**
@@ -35,7 +36,18 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        try {
+            $client = new Client($request->all());
+            // dd($client);
+            $client->save();
+        session()->flash('success', 'le client a été ajouté !');
+    } catch (\Throwable $th) {
+            session()->flash('error', 'ERREUR : ');
+            //throw $th;
+        }
+
+        return redirect()->route('client.index');
     }
 
     /**
@@ -46,7 +58,11 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return view('client.detail', compact('client'));
+    }
+    public function showProduit(Client $client)
+    {
+        return view('client.detail_commande', compact('client'));
     }
 
     /**
@@ -69,7 +85,17 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+            // dd($request->all());
+            try {
+                // dd($client);
+                $data = $request->all();
+                $client->update($data);
+                session()->flash('success', 'le client a été modifié !');
+            } catch (\Throwable $th) {
+                    session()->flash('error', 'ERREUR : ');
+                }
+
+                return redirect()->route('client.index');
     }
 
     /**
@@ -80,6 +106,23 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        // dd($client);
+        $client->deleted = true;
+        $client->update();
+        return redirect()->route('client.index');
+
+    }
+    public function corbeilleClient(){
+
+        $clients = Client::where('deleted', true)->get();
+        return view('client.corbeille',compact('clients'));
+    }
+    public function restaurer(Client $client){
+        // dd('enter');
+        $client->deleted = false;
+        $client->update();
+
+        session()->flash('success', 'le client a été restaurée !');
+        return redirect()->route('corbeille.client');
     }
 }

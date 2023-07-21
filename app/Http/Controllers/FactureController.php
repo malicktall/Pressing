@@ -14,7 +14,8 @@ class FactureController extends Controller
      */
     public function index()
     {
-        //
+        $factures = Facture::latest()->get();
+        return view('facture.list', compact('factures'));
     }
 
     /**
@@ -44,9 +45,12 @@ class FactureController extends Controller
      * @param  \App\Models\Facture  $facture
      * @return \Illuminate\Http\Response
      */
-    public function show(Facture $facture)
+    public function show($commande_id)
     {
-        //
+        // dd($commande_id);
+        $facture = Facture::where('commande_id', $commande_id)->first();
+        return view( 'facture.detail', compact('facture'));
+        // dd($facture);
     }
 
     /**
@@ -81,5 +85,9 @@ class FactureController extends Controller
     public function destroy(Facture $facture)
     {
         //
+    }
+    public function facture_print(Facture $facture){
+
+        return view('facture.facture_print', compact('facture'));
     }
 }
