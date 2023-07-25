@@ -1,6 +1,6 @@
 @extends('layouts/template')
 
-@section('title', 'Listes client')
+@section('title', 'Listes personnel')
 
 @section('body')
 <div class="nk-block nk-block-lg">
@@ -31,7 +31,7 @@
 
     <div class="nk-block-between">
         <div class="nk-block-head-content">
-            <h3 class="nk-block-title page-title">Listes des clients</h3>
+            <h3 class="nk-block-title page-title">Listes des personnels</h3>
         </div><!-- .nk-block-head-content -->
         <div class="nk-block-head-content">
             <div class="toggle-wrap nk-block-tools-toggle">
@@ -43,7 +43,7 @@
 
                         </li>
                         <li class="nk-block-tools-opt">
-                            <a href="#"data-toggle="modal" data-target="#profile-edit" class="btn btn-primary" ><em class="icon ni ni-plus"></em><span>client</span></a>
+                            <a href="#"data-toggle="modal" data-target="#profile-edit" class="btn btn-primary" ><em class="icon ni ni-plus"></em><span>personnel</span></a>
                         </li>
                     </ul>
                 </div>
@@ -57,38 +57,42 @@
                     <tr class="nk-tb-item nk-tb-head">
 
                         <th class="nk-tb-col"><span class="sub-text">Nom</span></th>
-                        <th class="nk-tb-col tb-col-mb"><span class="sub-text">Description</span></th>
+                        <th class="nk-tb-col tb-col-mb"><span class="sub-text">Role</span></th>
                         <th class="nk-tb-col tb-col-mb"><span class="sub-text">Adresse mail</span></th>
                         <th class="nk-tb-col tb-col-md"><span class="sub-text">Telephone</span></th>
                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Adresse</span></th>
+                        <th class="nk-tb-col tb-col-lg"><span class="sub-text">Argent recu</span></th>
                         <th class="nk-tb-col nk-tb-col-tools text-right">
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($clients as $client)
+                    @forelse ($personnels as $personnel)
                     <tr class="nk-tb-item">
 
                         <td class="nk-tb-col">
                             <div class="user-card">
                                 <div class="user-info">
-                                    <span class="tb-lead">{{$client->nom}} <span class="dot dot-success d-md-none ml-1"></span></span>
+                                    <span class="tb-lead">{{$personnel->name}} <span class="dot dot-success d-md-none ml-1"></span></span>
                                 </div>
                             </div>
                         </td>
                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                            <span class="tb-amount">{{$client->description}} </span>
+                            <span class="tb-amount">{{$personnel->role}} </span>
                         </td>
                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                            <span class="tb-amount">{{$client->email}} </span>
+                            <span class="tb-amount">{{$personnel->email}} </span>
                         </td>
 
                         <td class="nk-tb-col tb-col-md">
-                            <span>{{$client->telephone}} </span>
+                            <span>{{$personnel->telephone}} </span>
                         </td>
 
                         <td class="nk-tb-col tb-col-lg">
-                            <span>{{$client->adresse}} </span>
+                            <span>{{$personnel->adresse}} </span>
+                        </td>
+                        <td class="nk-tb-col tb-col-lg">
+                            <span>{{$personnel->argent_recu_total}} </span>
                         </td>
 
                         <td class="nk-tb-col nk-tb-col-tools">
@@ -100,10 +104,10 @@
                                     </a>
                                 </li> --}}
                                 <li class="nk-tb-action-hidden">
-                                    <form action="{{route('client.destroy', compact('client'))}}" method="post">
+                                    <form action="{{route('personnel.destroy', compact('personnel'))}}" method="post">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Supprimer le client">
+                                        <button type="submit" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Supprimer le personnel">
                                             <em class="icon ni ni-user-cross-fill"></em>
                                         </button>
                                     </form>
@@ -114,8 +118,8 @@
                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="link-list-opt no-bdr">
-                                                <li><a href="{{route('client.show', compact('client'))}}"><em class="icon ni ni-eye"></em><span>Voir Details</span></a></li>
-                                                <li><a href="#" data-toggle="modal" data-target="#profile-update{{$client->id}}">
+                                                <li><a href="{{route('personnel.show', compact('personnel'))}}"><em class="icon ni ni-eye"></em><span>Voir Details</span></a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#profile-update{{$personnel->id}}">
                                                     <em class="icon ni ni-pen2"></em><span>Modifier</span></a></li>
 
                                             </ul>
@@ -124,12 +128,12 @@
                                 </li>
                             </ul>
                         </td>
-                        <div class="modal fade" tabindex="-1" role="dialog" id="profile-update{{$client->id}}">
+                        <div class="modal fade" tabindex="-1" role="dialog" id="profile-update{{$personnel->id}}">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                                     <div class="modal-body modal-body-lg">
-                                        <h5 class="title">Modifier le client {{$client->id}}</h5>
+                                        <h5 class="title">Modifier le personnel {{$personnel->id}}</h5>
                                         <ul class="nk-nav nav nav-tabs">
                                             <li class="nav-item">
                                                 <a class="nav-link active" data-toggle="tab" href="#personal">Information</a>
@@ -137,7 +141,7 @@
 
                                         </ul>
 
-                                        <form action="{{route('client.update', compact('client'))}}" method="post">
+                                        <form action="{{route('personnel.update', compact('personnel'))}}" method="post">
                                             @csrf
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="personal">
@@ -145,9 +149,9 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="full-name">Nom Complet</label>
-                                                                <input type="text" name="nom" class="form-control form-control-lg"
+                                                                <input type="text" name="name" class="form-control form-control-lg"
                                                                     id="full-name"  placeholder="Nom Complet"
-                                                                    value="{{ old('name') ?? $client->nom }}">
+                                                                    value="{{ old('name') ?? $personnel->name }}">
 
                                                             </div>
                                                         </div>
@@ -156,33 +160,33 @@
                                                                 <label class="form-label" for="display-name">Email</label>
                                                                 <input name="email" type="email" class="form-control form-control-lg"
                                                                     id="display-name"  placeholder="Email"
-                                                                    value="{{ old('email') ?? $client->email }}">
+                                                                    value="{{ old('email') ?? $personnel->email }}">
 
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="display-name">Adresse</label>
-                                                                <input name="adresse" type="text" class="form-control form-control-lg"
-                                                                    id="display-name" placeholder="Entrer le adresse"
-                                                                    value="{{ old('adresse') ?? $client->adresse }}">
 
-                                                            </div>
-                                                        </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="phone-no">Numero tétéphone</label>
                                                                 <input type="text" name="telephone" class="form-control form-control-lg"
-                                                                    id="phone-no"  placeholder="Numero de téléphone" value="{{ old('telephone') ?? $client->telephone }}">
+                                                                    id="phone-no"  placeholder="Numero de téléphone" value="{{ old('telephone') ?? $personnel->telephone }}">
 
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="form-label" for="phone-no">Description</label>
-                                                                <textarea name="description" class="form-control "
-                                                                      placeholder="Numero de téléphone">{{ old('description') ?? $client->description }}</textarea>
+                                                                <label class="form-label">Role</label>
+                                                                <div class="form-control-wrap">
 
+                                                                    <select name="role" id="event-theme" class="select-calendar-theme form-control form-control-lg">
+                                                                        <option value="{{$personnel->role}}">{{$personnel->role}}</option>
+                                                                        <option value="">------ Choississez un role ------</option>
+                                                                        <option value="admin">Admin-</option>
+                                                                        <option value="gestionnaire">Gestionnaire</option>
+                                                                        <option value="gerant">gerant-</option>
+
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
 
@@ -190,7 +194,7 @@
                                                         <div class="col-12">
                                                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                                                 <li>
-                                                                    <button type="submit"  class="btn btn-lg btn-primary">Ajouter</button>
+                                                                    <button type="submit"  class="btn btn-lg btn-primary">Modifier</button>
                                                                 </li>
                                                                 <li>
                                                                     <a href="#" data-dismiss="modal" class="link link-light">Cancel</a>
@@ -211,7 +215,7 @@
                     <tr class="nk-tb-item">
 
                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                            <span class="tb-amount">Pas de client</span>
+                            <span class="tb-amount">Pas de personnel</span>
                         </td>
 
                     </tr>
@@ -230,7 +234,7 @@
         <div class="modal-content">
             <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-lg">
-                <h5 class="title">Ajouter un client</h5>
+                <h5 class="title">Ajouter un personnel</h5>
                 <ul class="nk-nav nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#personal">Information</a>
@@ -238,7 +242,7 @@
 
                 </ul>
 
-                <form action="{{route('client.store')}}" method="post">
+                <form action="{{route('personnel.store')}}" method="post">
                     @csrf
                     <div class="tab-content">
                         <div class="tab-pane active" id="personal">
@@ -246,9 +250,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label" for="full-name">Nom Complet</label>
-                                        <input type="text" name="nom" class="form-control form-control-lg"
+                                        <input type="text" name="name" class="form-control form-control-lg"
                                             id="full-name"  placeholder="Nom Complet">
-                                            {{-- value="{{$client->name}}" --}}
+                                            {{-- value="{{$personnel->name}}" --}}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -256,33 +260,32 @@
                                         <label class="form-label" for="display-name">Email</label>
                                         <input name="email" type="email" class="form-control form-control-lg"
                                             id="display-name" value="" placeholder="Email">
-                                            {{-- {{$client->email}} --}}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="display-name">Adresse</label>
-                                        <input name="adresse" type="text" class="form-control form-control-lg"
-                                            id="display-name" value="" placeholder="Entrer le adresse">
-                                            {{-- {{$client->email}} --}}
-                                    </div>
-                                </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label" for="phone-no">Numero tétéphone</label>
                                         <input type="text" name="telephone" class="form-control form-control-lg"
                                             id="phone-no" value="" placeholder="Numero de téléphone">
-                                            {{-- {{$client->telephone}} --}}
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="phone-no">Description</label>
-                                        <textarea name="description" class="form-control "
-                                             value="" placeholder="Numero de téléphone"></textarea>
-                                            {{-- {{$client->telephone}} --}}
+                                        <label class="form-label">Role</label>
+                                        <div class="form-control-wrap">
+
+                                            <select name="role" id="event-theme" class="select-calendar-theme form-control form-control-lg">
+                                                <option value="">------ Choississez un role ------</option>
+                                                <option value="admin">Admin-</option>
+                                                <option value="gestionnaire">Gestionnaire</option>
+                                                <option value="gerant">gerant-</option>
+
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+
 
 
                                 <div class="col-12">

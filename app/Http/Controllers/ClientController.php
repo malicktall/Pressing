@@ -161,6 +161,7 @@ class ClientController extends Controller
 
         $montant = $commande->kilos * 200;
         $user->argent_recu += $montant;
+        $user->argent_recu_total += $montant;
 
         $client->nbr_kilos -= $commande->kilos;
         $commande->prix_total = $montant;

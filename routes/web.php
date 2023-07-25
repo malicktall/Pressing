@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/produit', [ProduitController::class, 'index'])->name('produit.index');
     // Route::get('/corbeille', [ProduitController::class, 'corbeille'])->name('produit.corbeille');
     Route::get('/corbeille/cl', [ClientController::class, 'corbeilleClient'])->name('corbeille.client');
+    Route::get('/corbeille/pr', [PersonnelController::class, 'corbeillePersonnel'])->name('corbeille.personnel');
     Route::get('/corbeille/order', [CommandeController::class, 'corbeilleCommande'])->name('corbeille.commande');
     Route::post('/produit/{produit}', [ProduitController::class, 'update'])->name('produit.update');
     Route::post('/produit/r/{produit}', [ProduitController::class, 'restaurer'])->name('produit.restorer');
@@ -91,7 +92,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/personnel', [PersonnelController::class, 'index'])->name('personnel.index');
             Route::post('/personnel', [PersonnelController::class, 'store'])->name('personnel.store');
             Route::get('/personnel/{personnel}', [PersonnelController::class, 'show'])->name('personnel.show');
-            Route::get('/personnel/prod/{personnel}', [ClientController::class, 'showProduit'])->name('personnel.showProduit');
+            Route::get('/personnel/prod/{personnel}', [PersonnelController::class, 'showCommande'])->name('personnel.showProduit');
             Route::delete('/personnel/{personnel}', [PersonnelController::class, 'destroy'])->name('personnel.destroy');
             Route::post('/personnel/c/{personnel}', [PersonnelController::class, 'restaurer'])->name('personnel.restorer');
             Route::post('/personnel/nbrKilos/{personnel}', [PersonnelController::class, 'nbrKilos'])->name('personnel.nbrKilos');

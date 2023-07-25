@@ -1,6 +1,6 @@
 @extends('layouts/template')
 
-@section('title', 'Corbeille Client')
+@section('title', 'Corbeille Personnel')
 
 @section('body')
 <style>
@@ -59,7 +59,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('corbeille.commande')}}"><em class="icon ni ni-bag"></em><span>Commandes</span></a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('corbeille.personnel')}}"><em class="icon ni ni-user-circle"></em><span>Personnels</span></a>
+                    </li>
                     {{-- <li class="nav-item nav-item-trigger d-xxl-none">
                         <a href="#" class="toggle btn btn-icon btn-trigger" data-target="userAside"><em class="icon ni ni-user-list-fill"></em></a>
                     </li> --}}
@@ -79,40 +81,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($clients as $client)
+                            @forelse ($personnels as $personnel)
 
                             <tr class="nk-tb-item">
                                 <td class="nk-tb-col tb-col-sm">
                                     <span class="tb-product">
-                                        <span class="title text-primary">{{$client->name}} </span>
+                                        <span class="title text-primary">{{$personnel->name}} </span>
 
                                     </span>
                                 </td>
 
                                 <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                                    <span class="tb-sub">{{$client->email}}</span>
+                                    <span class="tb-sub">{{$personnel->email}}</span>
 
                                 </td>
 
                                 <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                                    <span class="tb-sub">{{$client->telephone}}</span>
+                                    <span class="tb-sub">{{$personnel->telephone}}</span>
 
                                 </td>
 
 
                                 <td class="nk-tb-col tb-col-lg" >
-                                    <span class="tb-sub">{{$client->adresse}}</span>
+                                    <span class="tb-sub">{{$personnel->adresse}}</span>
                                 </td>
                                 {{-- <td class="nk-tb-col tb-col-lg">
-                                    @if ($client->produits->count() == 1)
-                                        <span class="tb-sub text-primary">{{$client->produits[0]->nom}}</span>
+                                    @if ($personnel->produits->count() == 1)
+                                        <span class="tb-sub text-primary">{{$personnel->produits[0]->nom}}</span>
                                     @else
-                                    <span class="tb-sub text-primary">{{$client->produits()->count()}} produits</span>
+                                    <span class="tb-sub text-primary">{{$personnel->produits()->count()}} produits</span>
                                     @endif
                                 </td> --}}
-                           
+
                                 <td class="nk-tb-col">
-                                    <form action="{{route('client.restorer', compact('client'))}}" method="POST">
+                                    <form action="{{route('personnel.restorer', compact('personnel'))}}" method="POST">
                                         @csrf
                                         <button type="submit"  class="btn btn-dim btn-info">
                                             Restaurer<em class="icon ni ni-reload mx-1"></em>
@@ -128,12 +130,12 @@
                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
-                                                        <li><a href="{{route('client.show', compact('client'))}}"><em class="icon ni ni-eye"></em><span>Détails client</span></a></li>
+                                                        <li><a href="{{route('personnel.show', compact('personnel'))}}"><em class="icon ni ni-eye"></em><span>Détails personnel</span></a></li>
                                                         {{-- <li>
-                                                            <form action="{{route('client.restorer', compact('client'))}}" method="POST">
+                                                            <form action="{{route('personnel.restorer', compact('personnel'))}}" method="POST">
                                                                 @csrf
                                                                 <button type="submit">
-                                                                    <em class="icon ni ni-trash"></em><span>Restaurer ce client</span>
+                                                                    <em class="icon ni ni-trash"></em><span>Restaurer ce personnel</span>
                                                                 </button>
                                                             </form>
                                                         </li> --}}
@@ -151,7 +153,7 @@
                             <tr class="nk-tb-item">
                                 <td class="nk-tb-col nk-tb-col-check">
                                     <div class="custom-control custom-control-sm custom-checkbox notext">
-                                        <p><strong>Pas de client </strong></p>
+                                        <p><strong>Pas de personnel </strong></p>
                                     </div>
                                 </td>
                             </tr>

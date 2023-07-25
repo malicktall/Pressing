@@ -34,7 +34,7 @@
                                         </a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="/user" class="nk-menu-link">
+                                        <a href="/personnel" class="nk-menu-link">
                                             <span class="nk-menu-icon"><em class="icon ni ni-user"></em></span>
                                             <span class="nk-menu-text">Personnels</span>
                                         </a>

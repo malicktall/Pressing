@@ -53,13 +53,16 @@
 
             <div class="card-content">
                 <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('corbeille.client')}}"><em class="icon ni ni-user-circle"></em><span>Clients</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('corbeille.commande')}}"><em class="icon ni ni-bag"></em><span>Commandes</span></a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('corbeille.personnel')}}"><em class="icon ni ni-user-circle"></em><span>Personnels</span></a>
+                    </li>
                     {{-- <li class="nav-item nav-item-trigger d-xxl-none">
                         <a href="#" class="toggle btn btn-icon btn-trigger" data-target="userAside"><em class="icon ni ni-user-list-fill"></em></a>
                     </li> --}}
