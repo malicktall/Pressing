@@ -26,12 +26,28 @@
                          <div class="nk-sidebar-content">
                              <div class="nk-sidebar-menu" data-simplebar>
                                  <ul class="nk-menu">
-                                     <li class="nk-menu-item">
-                                         <a href="/dashboard" class="nk-menu-link">
-                                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
-                                             <span class="nk-menu-text">Tableau de bord</span>
-                                         </a>
-                                     </li><!-- .nk-menu-item -->
+                                    @if (Auth::user()->role == 'admin')
+                                    <li class="nk-menu-item">
+                                        <a href="/dashboard" class="nk-menu-link">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                            <span class="nk-menu-text">Tableau de bord</span>
+                                        </a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="/user" class="nk-menu-link">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-user"></em></span>
+                                            <span class="nk-menu-text">Personnels</span>
+                                        </a>
+                                    </li>
+
+                                    @else
+                                    <li class="nk-menu-item">
+                                        <a href="/commande" class="nk-menu-link">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                            <span class="nk-menu-text">Commandes</span>
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                    @endif
 
 
                                      <li class="nk-menu-item">
@@ -56,12 +72,7 @@
                                      <li class="nk-menu-heading">
                                          <h6 class="overline-title text-primary-alt">Trade</h6>
                                      </li><!-- .nk-menu-item -->
-                                     <li class="nk-menu-item">
-                                        <a href="/commande" class="nk-menu-link">
-                                            <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
-                                            <span class="nk-menu-text">Commandes</span>
-                                        </a>
-                                    </li><!-- .nk-menu-item -->
+
                                      <li class="nk-menu-item">
                                          <a href="facture" class="nk-menu-link">
                                              <span class="nk-menu-icon"><em class="icon ni ni-file-docs"></em></span>

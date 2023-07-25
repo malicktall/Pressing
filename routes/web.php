@@ -7,6 +7,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\ProduitComponent;
@@ -34,7 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/commande/cart', function () {
         return view('produit/cart');
     })->name('cart');
-    Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 
 
     // Produit
@@ -78,12 +78,27 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('/', [DashboardController::class, 'index'])->name('home');
+    Route::get('/homeGerant', [DashboardController::class, 'homeGerant'])->name('homeGerant');
     // Route::get('/', function () {
-    //     return view('welcome');
-    // });
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('home.dashboard');
+        //     return view('welcome');
+        // });
+        Route::middleware('admin')->group(function () {
+            Route::get('/', [DashboardController::class, 'index'])->name('home');
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('home.dashboard');
+            Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 
+            Route::post('/personnel/{personnel}', [PersonnelController::class, 'update'])->name('personnel.update');
+            Route::get('/personnel', [PersonnelController::class, 'index'])->name('personnel.index');
+            Route::post('/personnel', [PersonnelController::class, 'store'])->name('personnel.store');
+            Route::get('/personnel/{personnel}', [PersonnelController::class, 'show'])->name('personnel.show');
+            Route::get('/personnel/prod/{personnel}', [ClientController::class, 'showProduit'])->name('personnel.showProduit');
+            Route::delete('/personnel/{personnel}', [PersonnelController::class, 'destroy'])->name('personnel.destroy');
+            Route::post('/personnel/c/{personnel}', [PersonnelController::class, 'restaurer'])->name('personnel.restorer');
+            Route::post('/personnel/nbrKilos/{personnel}', [PersonnelController::class, 'nbrKilos'])->name('personnel.nbrKilos');
+            Route::post('/personnel/commande/{personnel}', [PersonnelController::class, 'commande'])->name('personnel.commande');
+
+
+        });
     Route::post('/client/{client}', [ClientController::class, 'update'])->name('client.update');
     Route::get('/client', [ClientController::class, 'index'])->name('client.index');
     Route::post('/client', [ClientController::class, 'store'])->name('client.store');
@@ -91,6 +106,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/prod/{client}', [ClientController::class, 'showProduit'])->name('client.showProduit');
     Route::delete('/client/{client}', [ClientController::class, 'destroy'])->name('client.destroy');
     Route::post('/client/c/{client}', [ClientController::class, 'restaurer'])->name('client.restorer');
+    Route::post('/client/nbrKilos/{client}', [ClientController::class, 'nbrKilos'])->name('client.nbrKilos');
+    Route::post('/client/commande/{client}', [ClientController::class, 'commande'])->name('client.commande');
 
 
     Route::get('/user/profile/{user}', [UserController::class, 'profile'])->name('user.profile');

@@ -32,7 +32,7 @@
                 <div class="form-label-group">
                     <label class="form-label" for="password">Password</label>
                     {{-- {{route('user.forgotPassword')}} --}}
-                    <a class="link link-primary link-sm" href="">Code oublié ?</a>
+                    <a class="link link-primary link-sm" href="{{route('user.forgotPassword')}}">Code oublié ?</a>
                 </div>
                 <div class="form-control-wrap">
                     <a href="#" class="form-icon form-icon-right passcode-switch" data-target="password">

@@ -12,7 +12,6 @@ use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
-
 class UserController extends Controller
 {
     public function profile (User $user){
@@ -178,4 +177,5 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Les mots de passe ne sont pas identiques .');
         }
     }
+
 }

@@ -15,7 +15,8 @@
     <link rel="stylesheet" href={{url('assets/css/dashlite.css?ver=2.4.0')}}>
     <link rel="stylesheet" type="text/css" href="./assets/css/libs/fontawesome-icons.css">
     <link id="skin-default" rel="stylesheet" href={{url('assets/css/theme.css?ver=2.4.0')}}>
-    <style>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+   <style>
         .alert-container {
         position: fixed;
         bottom: 70px;

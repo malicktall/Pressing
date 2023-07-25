@@ -121,5 +121,12 @@ class DashboardController extends Controller
 
 
         ));
+
+
+    }
+
+    public function homeGerant (){
+        $commandes = Commande::all();
+        return view('commande.list', compact('commandes'));
     }
 }
